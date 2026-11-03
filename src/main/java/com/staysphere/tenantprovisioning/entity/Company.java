@@ -3,7 +3,7 @@ package com.staysphere.tenantprovisioning.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.hibernate.validator.constraints.UUID;
+import com.staysphere.tenantprovisioning.enums.CompanyStatusEnum;
 
 import jakarta.persistence.*;
 
