@@ -1,13 +1,13 @@
-package com.staysphere.pgmgmt;
+package com.staysphere;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PgmgmtApplication {
+public class StaySphereApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PgmgmtApplication.class, args);
+		SpringApplication.run(StaySphereApplication.class, args);
 	}
 
 }

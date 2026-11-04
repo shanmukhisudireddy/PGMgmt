@@ -31,7 +31,8 @@ public class Company {
             GenerationType.IDENTITY)
     private Long id;
 
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false, unique = true, updatable = false)
+
     private UUID tenantId;
 
     private String companyName;
@@ -118,6 +119,12 @@ public class Company {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public void generateTenantId() {
+    if (tenantId == null) {
+        tenantId = UUID.randomUUID();
+    }
+}
 
 
 }
