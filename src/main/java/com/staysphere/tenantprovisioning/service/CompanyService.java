@@ -2,11 +2,13 @@ package com.staysphere.tenantprovisioning.service;
 
 import java.security.SecureRandom;
 import java.util.Locale;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.staysphere.tenantprovisioning.dto.CompanyRegistrationRequest;
 import com.staysphere.tenantprovisioning.entity.Company;
+import com.staysphere.tenantprovisioning.exception.CompanyNotFoundException;
 import com.staysphere.tenantprovisioning.repository.CompanyRepository;
 
 @Service
@@ -52,7 +54,7 @@ public class CompanyService {
         // Try generating a unique company code
         for (int i = 0; i < 20; i++) {
 
-            int randomNumber = 100 + RANDOM.nextInt(900);
+            int randomNumber = 1000 + RANDOM.nextInt(9000);
 
             String companyCode = prefix + randomNumber;
 
@@ -65,4 +67,10 @@ public class CompanyService {
                 "Unable to generate a unique company code"
         );
     }
+
+    public Company getCompanyById(Long id){
+        Optional<Company> company = companyRepository.findById(id);
+        return company.orElseThrow(()->new CompanyNotFoundException("Company with Id" + id + "Not Found"));
+    }
+
 }
