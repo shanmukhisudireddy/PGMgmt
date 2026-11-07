@@ -31,16 +31,16 @@ public class Company {
             GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false, updatable = false)
 
     private UUID tenantId;
 
     private String companyName;
     
-    @Column (unique = true) 
+    @Column
     private String companyCode;
 
-    @Column(name = "database_name", unique = true)
+    @Column(name = "database_name")
     private String databaseName;
 
     @Enumerated (EnumType.STRING)
@@ -119,12 +119,4 @@ public class Company {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
-    public void generateTenantId() {
-    if (tenantId == null) {
-        tenantId = UUID.randomUUID();
-    }
-}
-
-
 }

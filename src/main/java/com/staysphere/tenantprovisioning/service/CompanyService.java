@@ -3,13 +3,16 @@ package com.staysphere.tenantprovisioning.service;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.staysphere.tenantprovisioning.dto.CompanyRegistrationRequest;
 import com.staysphere.tenantprovisioning.entity.Company;
 import com.staysphere.tenantprovisioning.exception.CompanyNotFoundException;
+import com.staysphere.tenantprovisioning.exception.InvalidStatusUpdateException;
 import com.staysphere.tenantprovisioning.repository.CompanyRepository;
+import com.staysphere.tenantprovisioning.enums.CompanyStatusEnum;
 
 @Service
 public class CompanyService {
@@ -38,7 +41,7 @@ public class CompanyService {
 
     private String generateCompanyCode(String companyName) {
 
-        // Extract first three letters
+        // Extract first four letters
         String prefix = companyName
                 .replaceAll("[^a-zA-Z]", "")
                 .toUpperCase(Locale.ROOT);
@@ -70,7 +73,26 @@ public class CompanyService {
 
     public Company getCompanyById(Long id){
         Optional<Company> company = companyRepository.findById(id);
-        return company.orElseThrow(()->new CompanyNotFoundException("Company with Id" + id + "Not Found"));
+        return company.orElseThrow(()->new CompanyNotFoundException("Company with Id " + id + " Not Found"));
+    }
+
+    public List<Company> getCompanies(){
+
+        List<Company> companies = companyRepository.findAll();
+        return companies;
+    }
+
+    public Company updateStatus(Long id, CompanyStatusEnum status){
+        Company company = getCompanyById(id);
+        if(company.getStatus()==CompanyStatusEnum.PENDING && status==CompanyStatusEnum.ACTIVE){
+            company.setStatus(status);
+            companyRepository.save(company);
+        }
+        else{
+            String msg = "Company status updation is not allowed from "+company.getStatus()+ " to "+ status;
+            throw new InvalidStatusUpdateException(msg);
+        }
+        return company;
     }
 
 }

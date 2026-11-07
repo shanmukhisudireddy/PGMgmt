@@ -47,4 +47,13 @@ public class GlobalExceptionHandler {
         exception.getMessage(), groupedErrors);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+
+    @ExceptionHandler (InvalidStatusUpdateException.class)
+    public ResponseEntity<ApiErrorResponse> InvalidStatusUpdateException(InvalidStatusUpdateException exception){
+        Map<String, List<String>> groupedErrors = Map.of();
+    ApiErrorResponse response = new ApiErrorResponse(Instant.now(), HttpStatus.NOT_ACCEPTABLE.value(),
+        HttpStatus.NOT_ACCEPTABLE.getReasonPhrase(),
+        exception.getMessage(), groupedErrors);
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response);
+    }
 }
