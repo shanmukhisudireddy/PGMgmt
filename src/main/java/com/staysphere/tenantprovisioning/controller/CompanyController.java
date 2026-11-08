@@ -11,8 +11,6 @@ import com.staysphere.tenantprovisioning.dto.CompanyRegistrationRequest;
 import com.staysphere.tenantprovisioning.dto.CompanyRegistrationResponse;
 import com.staysphere.tenantprovisioning.dto.CompanyStatusUpdateRequest;
 import com.staysphere.tenantprovisioning.entity.Company;
-import com.staysphere.tenantprovisioning.enums.CompanyStatusEnum;
-import com.staysphere.tenantprovisioning.exception.CompanyNotFoundException;
 
 import jakarta.validation.Valid;
 
