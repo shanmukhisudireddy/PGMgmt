@@ -27,7 +27,9 @@ import jakarta.persistence.ManyToMany;
 @Table (name = "users", uniqueConstraints = 
     {@UniqueConstraint(name = "uk_emailid",
         columnNames = "emailid"
-)
+    ),
+    @UniqueConstraint(name ="uk_username",
+    columnNames = "username")
     } 
     )
 
@@ -54,6 +56,9 @@ public class User {
     
     @Column (nullable = false, updatable = false)
     private Instant createdAt;
+
+    @Column (name = "username", nullable=false, updatable = false, length = 8)
+    private String userName;
 
     @ManyToMany
     @JoinTable(

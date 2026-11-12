@@ -2,7 +2,6 @@ package com.staysphere.usermgmt.service;
 
 import com.staysphere.usermgmt.repository.RoleRepository;
 import com.staysphere.usermgmt.repository.UserRepository;
-import com.staysphere.usermgmt.dto.RoleRegistrationResponse;
 import com.staysphere.usermgmt.dto.RoleResponse;
 import com.staysphere.usermgmt.entity.Role;
 import com.staysphere.usermgmt.entity.User;

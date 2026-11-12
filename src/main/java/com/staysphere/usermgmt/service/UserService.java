@@ -98,12 +98,27 @@ public class UserService {
         User user = findById(id);
         AccountStatusEnum status = user.getAccountStatus();
         AccountStatusEnum accountStatus = request.getAccountStatus();
-        if(accountStatus == AccountStatusEnum.ACTIVE && status == AccountStatusEnum.PENDING){
+        if(accountStatus == AccountStatusEnum.ACTIVE && (status == AccountStatusEnum.PENDING
+        || status == AccountStatusEnum.DISABLED)){
             user.setAccountStatus(accountStatus);
             userRepository.save(user);
         }
         else{
             String msg = "User status updation is not allowed from "+status+ " to "+ accountStatus;
+            throw new InvalidStatusUpdateException(msg);
+        }
+        return user;
+    }
+
+    public User deactivateUser(Long id){
+        User user = findById(id);
+        AccountStatusEnum status = user.getAccountStatus();
+        if(status == AccountStatusEnum.ACTIVE){
+            user.setAccountStatus(AccountStatusEnum.DISABLED);
+            userRepository.save(user);
+        }
+        else{
+            String msg = "User status updation is not allowed from "+status+ " to "+ AccountStatusEnum.DISABLED;
             throw new InvalidStatusUpdateException(msg);
         }
         return user;

@@ -83,4 +83,14 @@ public class UserMgtmtController {
                             user.getAccountStatus(), user.getCreatedAt());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
+
+
+    @PatchMapping("{id}/deactivate")
+    public ResponseEntity<UserRegistrationResponse> deactivateUser(@PathVariable ("id") Long id){
+        User user = userService.deactivateUser(id);
+         UserRegistrationResponse response = new UserRegistrationResponse(user.getUserId(), 
+                            user.getFullName(), user.getEmailId(), 
+                            user.getAccountStatus(), user.getCreatedAt());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+    }
 }
