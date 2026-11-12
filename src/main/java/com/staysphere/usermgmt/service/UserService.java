@@ -6,16 +6,22 @@ import org.springframework.stereotype.Service;
 import com.staysphere.tenantprovisioning.exception.InvalidStatusUpdateException;
 import com.staysphere.usermgmt.dto.UserAccountStatusUpdate;
 import com.staysphere.usermgmt.dto.UserRegistrationRequest;
+import com.staysphere.usermgmt.dto.UserRoleUpdateRequest;
 import com.staysphere.usermgmt.dto.UserUpdateRequest;
 import com.staysphere.usermgmt.entity.User;
+import com.staysphere.usermgmt.entity.Role;
 import com.staysphere.usermgmt.enums.AccountStatusEnum;
 import com.staysphere.usermgmt.exception.UserNotFoundException;
+import com.staysphere.usermgmt.repository.RoleRepository;
 import com.staysphere.usermgmt.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 import com.staysphere.usermgmt.exception.EmailIdExistsException;
 
 import java.util.Optional;
 import java.util.List;
+import java.util.Set;
 
 @Service 
 public class UserService {
@@ -24,9 +30,12 @@ public class UserService {
 
     protected final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
+    private final RoleRepository roleRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     public User findById(Long userId){
@@ -99,4 +108,55 @@ public class UserService {
         }
         return user;
     }
+
+    public User validateUser(UserRoleUpdateRequest request){
+        User user = userRepository.findByEmailId(request.getEmailId()).orElseThrow(() -> new UserNotFoundException("Email not found"));
+        if (!user.getFullName().trim()
+            .equalsIgnoreCase(request.getFullName().trim())) {
+        throw new IllegalArgumentException(
+            "Full name does not match the registered user"
+        );
+    }
+
+        if(user.getAccountStatus() != AccountStatusEnum.ACTIVE){
+            throw new IllegalStateException(
+            "Roles can only be assigned to active users"
+        );
+        }
+
+        return user;
+    }
+    @Transactional 
+    public User updateUserRoles(UserRoleUpdateRequest request){
+        User user = validateUser(request);
+        Set<Role> newRoles = request.getRoles().stream()
+        .map(name -> roleRepository.findByRoleName(name.trim().toUpperCase())
+        .orElseThrow(()-> new IllegalArgumentException("No roles received to udpate")))
+        .collect(java.util.stream.Collectors.toSet());
+
+    for (Role role : newRoles) {
+        user.assignRoles(role);
+    }
+
+    return userRepository.save(user);
+
+    }
+
+    @Transactional
+    public User deleteUserRoles(UserRoleUpdateRequest request) {
+
+    User user = validateUser(request);
+
+    Set<String> rolesToDelete = request.getRoles().stream()
+        .map(name -> name.trim().toUpperCase())
+        .collect(java.util.stream.Collectors.toSet());
+
+    for (Role role : new java.util.HashSet<>(user.getRoles())) {
+        if (rolesToDelete.contains(role.getRoleName())) {
+            user.deleteRoles(role);
+        }
+    }
+
+    return userRepository.save(user);
 }
+    }
