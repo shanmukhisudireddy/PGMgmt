@@ -1,5 +1,5 @@
 
-package com.staysphere.tenantprovisioning.exception;
+package com.staysphere.companymgmt.exception;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.http.HttpStatus;
 
-import com.staysphere.tenantprovisioning.dto.ApiErrorResponse;
+import com.staysphere.companymgmt.dto.ApiErrorResponse;
 import com.staysphere.usermgmt.exception.EmailIdExistsException;
 import com.staysphere.usermgmt.exception.UserNotFoundException;
 

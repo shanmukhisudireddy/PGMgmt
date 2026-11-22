@@ -1,6 +1,6 @@
-package com.staysphere.tenantprovisioning.dto;
+package com.staysphere.companymgmt.dto;
 
-import com.staysphere.tenantprovisioning.enums.CompanyStatusEnum;
+import com.staysphere.companymgmt.enums.CompanyStatusEnum;
 
 import jakarta.validation.constraints.NotNull;
 

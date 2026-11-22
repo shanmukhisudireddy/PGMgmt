@@ -1,9 +1,9 @@
-package com.staysphere.tenantprovisioning.entity;
+package com.staysphere.companymgmt.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.staysphere.tenantprovisioning.enums.CompanyStatusEnum;
+import com.staysphere.companymgmt.enums.CompanyStatusEnum;
 
 import jakarta.persistence.*;
 

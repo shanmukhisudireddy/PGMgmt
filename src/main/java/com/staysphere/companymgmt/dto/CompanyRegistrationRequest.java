@@ -1,4 +1,4 @@
-package com.staysphere.tenantprovisioning.dto;
+package com.staysphere.companymgmt.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

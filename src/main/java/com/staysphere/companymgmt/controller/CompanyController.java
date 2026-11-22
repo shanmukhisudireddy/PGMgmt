@@ -1,16 +1,16 @@
-package com.staysphere.tenantprovisioning.controller;
+package com.staysphere.companymgmt.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.staysphere.companymgmt.dto.CompanyRegistrationRequest;
+import com.staysphere.companymgmt.dto.CompanyRegistrationResponse;
+import com.staysphere.companymgmt.dto.CompanyStatusUpdateRequest;
+import com.staysphere.companymgmt.entity.Company;
+import com.staysphere.companymgmt.service.CompanyService;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.staysphere.tenantprovisioning.service.CompanyService;
-import com.staysphere.tenantprovisioning.dto.CompanyRegistrationRequest;
-import com.staysphere.tenantprovisioning.dto.CompanyRegistrationResponse;
-import com.staysphere.tenantprovisioning.dto.CompanyStatusUpdateRequest;
-import com.staysphere.tenantprovisioning.entity.Company;
 
 import jakarta.validation.Valid;
 
@@ -72,5 +72,11 @@ public class CompanyController {
         return ResponseEntity.ok(response);
     }
     
+    @PatchMapping ("{id}/lifecycle")
+    public ResponseEntity<CompanyRegistrationResponse> approveCompanyStatus(@PathVariable ("id") Long id, @RequestBody @Valid CompanyStatusUpdateRequest request){
+        Company company = companyService.approveStatus(id, request.getStatus());
+        CompanyRegistrationResponse response = new CompanyRegistrationResponse(company.getCompanyName(), company.getTenantId(), company.getCompanyCode(), company.getStatus());
+        return ResponseEntity.ok(response);
+    }
     
 }

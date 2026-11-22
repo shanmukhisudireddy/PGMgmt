@@ -5,6 +5,8 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties.Apiversion.Use;
+
 import com.staysphere.usermgmt.enums.AccountStatusEnum;
 
 import jakarta.persistence.Column;
@@ -67,6 +69,8 @@ public class User {
         inverseJoinColumns = @JoinColumn (name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    public User(){}
 
     public Long getUserId() {
         return userId;

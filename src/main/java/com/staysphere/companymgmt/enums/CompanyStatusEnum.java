@@ -1,4 +1,4 @@
-package com.staysphere.tenantprovisioning.enums;
+package com.staysphere.companymgmt.enums;
 
 public enum CompanyStatusEnum{
     PENDING,

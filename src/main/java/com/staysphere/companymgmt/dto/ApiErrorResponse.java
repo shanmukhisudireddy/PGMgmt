@@ -1,4 +1,4 @@
-package com.staysphere.tenantprovisioning.dto;
+package com.staysphere.companymgmt.dto;
 
 import java.time.Instant;
 import java.util.Map;

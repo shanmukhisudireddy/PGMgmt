@@ -3,7 +3,7 @@ package com.staysphere.usermgmt.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.staysphere.tenantprovisioning.exception.InvalidStatusUpdateException;
+import com.staysphere.companymgmt.exception.InvalidStatusUpdateException;
 import com.staysphere.usermgmt.dto.UserAccountStatusUpdate;
 import com.staysphere.usermgmt.dto.UserRegistrationRequest;
 import com.staysphere.usermgmt.dto.UserRoleUpdateRequest;

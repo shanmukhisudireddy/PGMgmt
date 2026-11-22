@@ -1,4 +1,4 @@
-package com.staysphere.tenantprovisioning.exception;
+package com.staysphere.companymgmt.exception;
 
 public class CompanyNotFoundException extends RuntimeException{
 

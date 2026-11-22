@@ -6,17 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import com.staysphere.usermgmt.entity.Permission;
 import com.staysphere.usermgmt.entity.Role;
 import com.staysphere.usermgmt.repository.PermissionRepository;
 import com.staysphere.usermgmt.repository.RoleRepository;
 
-@Component
-public class RbacSeeder implements CommandLineRunner {
+@Service
+public class RbacSeeder{
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
@@ -28,9 +26,7 @@ public class RbacSeeder implements CommandLineRunner {
         this.permissionRepository = permissionRepository;
     }
 
-    @Override
-    @Transactional
-    public void run(String... args) {
+    public void seedDefaultRolesAndPermissions() {
 
         Map<String, Permission> permissions = new LinkedHashMap<>();
 

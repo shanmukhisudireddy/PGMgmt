@@ -1,8 +1,8 @@
-package com.staysphere.tenantprovisioning.dto;
+package com.staysphere.companymgmt.dto;
 
 import java.util.UUID;
 
-import com.staysphere.tenantprovisioning.enums.CompanyStatusEnum;
+import com.staysphere.companymgmt.enums.CompanyStatusEnum;
 
 public class CompanyRegistrationResponse {
 
